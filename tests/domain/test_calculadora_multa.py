@@ -20,3 +20,11 @@ def test_calcular_devueltoUnDiaTarde_cobra2000():
     multa = calculadora.calcular(LIMITE, LIMITE + timedelta(days=1), False)
 
     assert multa == 2000
+
+
+def test_calcular_devueltoVeintiseisDiasTarde_aplicaMultaMaxima():
+    calculadora = CalculadoraMulta()
+
+    multa = calculadora.calcular(LIMITE, LIMITE + timedelta(days=26), False)
+
+    assert multa == 50000
