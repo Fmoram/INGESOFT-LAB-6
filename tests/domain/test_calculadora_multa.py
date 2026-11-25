@@ -1,0 +1,14 @@
+from datetime import date, timedelta
+
+from domain.calculadora_multa import CalculadoraMulta
+
+
+LIMITE = date(2026, 11, 25)
+
+
+def test_calcular_devueltoAntesDelLimite_noHayMulta():
+    calculadora = CalculadoraMulta()
+
+    multa = calculadora.calcular(LIMITE, LIMITE - timedelta(days=1), False)
+
+    assert multa == 0
