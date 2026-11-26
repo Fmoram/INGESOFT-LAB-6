@@ -62,3 +62,13 @@ def test_estaDisponible_sinConexion_lanzaServicioNoDisponible():
     # Act / Assert
     with pytest.raises(ServicioNoDisponible):
         adaptador.esta_disponible(12)
+
+
+def test_estaDisponible_servidorResponde403_lanzaServicioNoDisponible(adaptador, httpserver):
+    # Arrange: un código 4xx distinto de 404 tampoco es una respuesta válida
+    httpserver.expect_request("/api/v1/equipos/12").respond_with_data("prohibido", status=403)
+    # Act
+    with pytest.raises(ServicioNoDisponible) as error:
+        adaptador.esta_disponible(12)
+    # Assert
+    assert str(error.value) == "HTTP 403"
